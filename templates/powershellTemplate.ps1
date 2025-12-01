@@ -13,7 +13,8 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [switch]$VerboseMode
+    [switch]
+    $VerboseMode
 )
 #endregion
 
@@ -31,10 +32,12 @@ begin
         param(
             [Parameter(Mandatory = $true)]
             [ValidateSet("INFO", "WARN", "ERROR")]
-            [string]$Level,
+            [string]
+            $Level,
             
             [Parameter(Mandatory = $true)]
-            [string]$Message
+            [string]
+            $Message
         )
         $timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
         Write-Output "$timestamp [$Level] $Message"
