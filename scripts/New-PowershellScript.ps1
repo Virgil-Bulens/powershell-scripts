@@ -9,6 +9,8 @@
 {example usage}
 #>
 
+function New-PowershellScript
+{
 #region 1 - Parameters
 [CmdletBinding()]
 param(
@@ -85,3 +87,4 @@ end
     Write-Log -Level INFO -Message "Script finished."
 }
 #endregion
+}
