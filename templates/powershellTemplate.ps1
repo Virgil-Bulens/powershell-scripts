@@ -23,24 +23,8 @@ begin
     Set-StrictMode -Version Latest
     $ErrorActionPreference = "Stop"
 
-    # Log Function
-    function Write-CustomLog
-    {
-        param(
-            [Parameter(Mandatory = $true)]
-            [ValidateSet("INFO", "WARN", "ERROR")]
-            [string]
-            $Level,
-            
-            [Parameter(Mandatory = $true)]
-            [string]
-            $Message
-        )
-        $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-        Write-Verbose "$timestamp [$Level] $Message"
-    }
-
-    Write-CustomLog -Level INFO -Message "Script started."
+    # Log Start
+    Write-Verbose -Message "Script started."
 }
 #endregion
 
@@ -63,6 +47,6 @@ process
 #region 4 - End
 end
 {
-    Write-CustomLog -Level INFO -Message "Script finished."
+    Write-Verbose -Message "Script finished."
 }
 #endregion
