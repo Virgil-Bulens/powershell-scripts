@@ -12,9 +12,6 @@
 #region 1 - Parameters
 [CmdletBinding()]
 param(
-    [Parameter()]
-    [switch]
-    $VerboseMode
 )
 #endregion
 
@@ -39,8 +36,8 @@ begin
             [string]
             $Message
         )
-        $timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
-        Write-Output "$timestamp [$Level] $Message"
+        $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        Write-Verbose "$timestamp [$Level] $Message"
     }
 
     Write-Log -Level INFO -Message "Script started."
@@ -57,8 +54,7 @@ process
     } 
     catch 
     {
-        Write-Log -Level ERROR -Message $_.Exception.Message
-        throw
+        Write-Error $_.Exception.Message
     }
 }
 #endregion
