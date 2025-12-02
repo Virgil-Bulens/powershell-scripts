@@ -24,7 +24,7 @@ begin
     $ErrorActionPreference = "Stop"
 
     # Log Function
-    function Write-Log
+    function Write-CustomLog
     {
         param(
             [Parameter(Mandatory = $true)]
@@ -40,7 +40,7 @@ begin
         Write-Verbose "$timestamp [$Level] $Message"
     }
 
-    Write-Log -Level INFO -Message "Script started."
+    Write-CustomLog -Level INFO -Message "Script started."
 }
 #endregion
 
@@ -63,6 +63,6 @@ process
 #region 4 - End
 end
 {
-    Write-Log -Level INFO -Message "Script finished."
+    Write-CustomLog -Level INFO -Message "Script finished."
 }
 #endregion
