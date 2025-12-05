@@ -25,8 +25,17 @@ $ErrorActionPreference = "Stop"
 Write-Verbose -Message "Script started."
 
 # Authentication
-Connect-MgGraph -Identity -NoWelcome
-Connect-AzAccount -Identity | Out-Null
+# Try/catch to handle local testing vs azure runbook scenarios
+try {
+    Write-Verbose "Attempting Managed Identity connection..."
+    Connect-MgGraph -Identity -NoWelcome
+    Connect-AzAccount -Identity -WarningAction Ignore | Out-Null
+}
+catch {
+    Write-Warning "Managed Identity connection failed. Attempting interactive fallback (for local debugging)."
+    Connect-MgGraph -NoWelcome
+    Connect-AzAccount | Out-Null
+}
 #endregion
 
 
