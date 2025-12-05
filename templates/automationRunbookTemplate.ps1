@@ -46,7 +46,14 @@ try
 }
 catch
 {
-    Write-Error $_.Exception.Message
+    $errMessage = "Status: $($_.Exception.Message)"
+    if ($_.Exception.Response)
+    {
+         $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+         $details = $reader.ReadToEnd()
+         $errMessage += " Details: $details"
+    }
+    throw $errMessage
 }
 #endregion
 
