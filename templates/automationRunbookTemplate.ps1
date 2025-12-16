@@ -44,17 +44,24 @@ try
 {
 
 }
-catch
-{
-    $errMessage = "Status: $($_.Exception.Message)"
-    if ($_.Exception.Response)
+    catch
     {
-         $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
-         $details = $reader.ReadToEnd()
-         $errMessage += " Details: $details"
+        $errMessage = "Status: $($_.Exception.Message)"
+        try 
+        {
+            if ($_.Exception.Response)
+            {
+                $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+                $details = $reader.ReadToEnd()
+                $errMessage += " | Details: $details"
+            }
+        }
+        catch
+        {
+            $errMessage += " | Could not read response stream for details."
+        }
+        throw $errMessage
     }
-    throw $errMessage
-}
 #endregion
 
 
