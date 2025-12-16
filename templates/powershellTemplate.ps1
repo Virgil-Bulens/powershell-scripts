@@ -36,14 +36,21 @@ process
     {
 
     } 
-    catch 
+    catch
     {
         $errMessage = "Status: $($_.Exception.Message)"
-        if ($_.Exception.Response)
+        try 
         {
-             $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
-             $details = $reader.ReadToEnd()
-             $errMessage += " Details: $details"
+            if ($_.Exception.Response)
+            {
+                $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+                $details = $reader.ReadToEnd()
+                $errMessage += " | Details: $details"
+            }
+        }
+        catch
+        {
+            $errMessage += " | Could not read response stream for details."
         }
         throw $errMessage
     }
